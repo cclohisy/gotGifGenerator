@@ -8,7 +8,7 @@ $(document).ready(function () {
     
     //create topics array
     //this will be the tile of the buttons displayed
-    var topics = ["mother of dragons", "cersei", "jon snow", "GOT dragons", "tyrion", "jamie lannister", "joffery", "white walkers", "direwolf", "winter is coming", "arya", "ramsay bolton"]
+    var topics = ["mother of dragons", "cersei", "jon snow", "tyrion", "jamie lannister", "joffery", "white walkers", "direwolf", "winter is coming", "arya", "ramsay bolton"]
     console.log(topics)
 
 
@@ -21,7 +21,7 @@ $(document).ready(function () {
             //create button for each item in array
             var topicButton = $("<button>")
             //add classes for formatting
-            topicButton.attr("class", " topicBtn m-2 btn btn-light")
+            topicButton.addClass("topicBtn m-2 btn btn-light")
             //display text of ith item in button
             topicButton.text(topics[i])
             
@@ -52,7 +52,7 @@ $(document).ready(function () {
 
 
     //on click of topic button...
-    $(".topicBtn").on("click", function () {
+    $("#buttonDiv").on("click", ".topicBtn",function () {
         //empty div so only chosen gifs pop up
         $("#gifsHere").empty()
         //set variable (var character?) to  get data-topic from button 
@@ -77,26 +77,32 @@ $(document).ready(function () {
                     //create div for each gif w/rating
                     var contentDiv = $("<div>");
                     // Make a paragraph to hold rating and store in variable
-                    var gifRating = $("<h3>");
+                    var gifRating = $("<h4>");
+                    var gifTitle = $("<h6>");
                     //set class for formatting
-                    gifRating.attr("class", "text-light ")
+                    gifRating.addClass("text-light mx-auto")
+                    gifTitle.addClass("text-light mx-auto")
                     // Set text of the paragraph to the rating of the image in results[i].
                     gifRating.text("Rating : " + results[i].rating);
+                    gifTitle.text("Title : " + results[i].title);
                     // Append image rating variable to the contentDiv variable.
                     contentDiv.append(gifRating);
+                    contentDiv.append(gifTitle);
+
 
                     //create image tag to hold gif
                     var gifImg = $("<img>");
                     // append gifImg to contentdiv
                     contentDiv.append(gifImg);
                     //set clases for formatting
-                    gifImg.attr("class", "img-responsive")
+                    gifImg.addClass("border border-white m-2")
 
                     // store animated source in variable 
-                    var animatedSource = results[i].images.fixed_height.url
+                    var animatedSource = results[i].images.original.url
                     gifImg.attr("dataAnimated", animatedSource)
+                    
                     // Store still source in variable
-                    var stillSource = results[i].images.fixed_height_still.url
+                    var stillSource = results[i].images.fixed_width_still.url
                     gifImg.attr("dataStill", stillSource)
                     //set data state attribute to still 
                     gifImg.attr("dataState", "still")
