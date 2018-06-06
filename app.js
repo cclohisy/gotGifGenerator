@@ -1,85 +1,54 @@
-
-console.log("i am here")
-
+// console.log("i am linked")
 $(document).ready(function () {
-
-    //establish nessicary variables
-    //userInput?
-    
-    //create topics array
-    //this will be the tile of the buttons displayed
+    //create topics array- btns
     var topics = ["mother of dragons", "cersei", "jon snow", "tyrion", "jamie lannister", "joffery", "white walkers", "direwolf", "winter is coming", "arya", "ramsay bolton"]
-    console.log(topics)
-
-
     //create function to display buttons
     function displayButtons() {
         //empty div so only one set of buttons is displayed as new ones are added
         $("#buttonDiv").empty()
-        //loop through topics array
         for (i = 0; i < topics.length; i++) {
             //create button for each item in array
             var topicButton = $("<button>")
-            //add classes for formatting
             topicButton.addClass("topicBtn m-2 btn btn-light")
             //display text of ith item in button
-            topicButton.text(topics[i])
-            
+            topicButton.text(topics[i])           
             //assign data-topic attribute = [i] ? ... string value from array?
             topicButton.attr("data-topic", topics[i])
             //display (append) new button in buttons div
             $("#buttonDiv").append(topicButton)
         }
-    }//end of displayButtons funciton 
-
-    //calls display buttons function
+    }
     displayButtons()
-    
-    //create function to display new buttons
-    // when submit button clicked..
+
     $("#submitButton").on("click", function (event) {
-        // - not sure what this is doing ... stopping form from actually submitting?
         event.preventDefault()
         //grab  userInput from textbox and set to variable
         var newTopic = $("#userInput").val()   
         //push newTopic into existing topics array
         topics.push(newTopic)
-        console.log(topics)
-        //run display buttons function 
+        // console.log(topics)
         displayButtons()
 
-    })//closes new button function
+    })
 
-
-    //on click of topic button...
     $("#buttonDiv").on("click", ".topicBtn",function () {
         //empty div so only chosen gifs pop up
         $("#gifsHere").empty()
-        //set variable (var character?) to  get data-topic from button 
+        //set variable to  get data-topic from button 
         var character = $(this).attr("data-topic");
-        //set query URL variable 
         //only want 10 images to display.. add limit qualifier to url
-
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=8GCJbgGlR5BgmVfAFFIRJUhmgJOp4ou0&limit=10";
-
-        //run ajax to get json data from giphy API
         $.ajax({
             url: queryURL,
             method: "GET"
         })
             .then(function (response) {
-                //run loop to display search data for info we want... static image, rating, and animated gif? 
-                // make a variable named results to store response.data
                 var results = response.data;
-                console.log(results);
-                //grab data for each item in resutls array and set variables... display in #gifsHere
                 for (var i = 0; i < results.length; i++) {
                     //create div for each gif w/rating
                     var contentDiv = $("<div>");
-                    // Make a paragraph to hold rating and store in variable
                     var gifRating = $("<h4>");
                     var gifTitle = $("<h6>");
-                    //set class for formatting
                     gifRating.addClass("text-light mx-auto")
                     gifTitle.addClass("text-light mx-auto")
                     // Set text of the paragraph to the rating of the image in results[i].
@@ -88,8 +57,6 @@ $(document).ready(function () {
                     // Append image rating variable to the contentDiv variable.
                     contentDiv.append(gifRating);
                     contentDiv.append(gifTitle);
-
-
                     //create image tag to hold gif
                     var gifImg = $("<img>");
                     // append gifImg to contentdiv
@@ -111,8 +78,6 @@ $(document).ready(function () {
                     gifImg.attr("src", stillSource)
                     // Append static image to the content div variable.
                     contentDiv.append(gifImg);
-
-
                     // Prepend the contentDiv to html id of gifsHere
                     $("#gifsHere").prepend(contentDiv);
 

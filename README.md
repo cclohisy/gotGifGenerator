@@ -1,4 +1,22 @@
-# gotGifGenerator
-webpage to generate Game of Thrones themed Gifs
-when user clicks character button, 10 gifs related to character appear. 
-user can created there own button to display gifs as well
+# GIF of Thrones
+
+### About 
+An app to generate Game of Thrones themed GIFs using an API call to GIPHY API. Users can also add a button for any topic they need a related GIF for. 
+
+### Live Link
+https://cclohisy.github.io/gotGifGenerator/
+
+### Installation
+All you need is a web browser! 
+
+### Built With 
+* GIPHY API
+* AJAX
+* JavaScript
+* jQuery
+* Bootstrap
+* HTML
+* CSS
+
+### Author
+Cecilia Clohisy
